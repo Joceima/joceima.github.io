@@ -1,0 +1,15 @@
+project:
+  type: website
+  output-dir: docs
+website:
+  title: "Mon portfolio"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Accueil
+      - href: about.qmd
+        text: À propos
+format:
+  html:
+    theme: cosmo
+    toc: true

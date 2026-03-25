@@ -1,0 +1,12 @@
+/.quarto/
+**/*.quarto_ipynb
+
+# Ignorer les gros fichiers 3D et textures
+*.glb
+*.png
+*.jpg
+
+joceima-site/public/oruk_warhammer.glb
+joceima-site/public/oruk_warhammer_u0_v0_diffuse.png
+joceima-site/public/oruk_warhammer_u0_v0_diffuse_2.png
+joceima-site/public/oruk_warhammer.glb.rsInfo
