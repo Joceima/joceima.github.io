@@ -13,3 +13,6 @@ format:
   html:
     theme: cosmo
     toc: true
+    resources: 
+      - "public/*.glb"
+      - "public/*.png"

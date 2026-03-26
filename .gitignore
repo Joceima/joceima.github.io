@@ -10,3 +10,30 @@ joceima-site/public/oruk_warhammer.glb
 joceima-site/public/oruk_warhammer_u0_v0_diffuse.png
 joceima-site/public/oruk_warhammer_u0_v0_diffuse_2.png
 joceima-site/public/oruk_warhammer.glb.rsInfo
+
+
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

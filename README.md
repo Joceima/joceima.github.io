@@ -1,0 +1,1 @@
+quarto preview .\joceima-site\index.qmd --no-browser
