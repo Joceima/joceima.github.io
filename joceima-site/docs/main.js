@@ -14,12 +14,13 @@ function create3DViewer(containerId, modelPath, texturePath, xOffsetGui = 0)
 
   // scène et caméra
   const scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x535353)
   //const camera = new THREE.PerspectiveCamera(60, w/h, 0.1, 100);
   //const rect = container.getBoundingClientRect();
   const w = container.clientWidth;
   const h = container.clientHeight;
   const camera = new THREE.PerspectiveCamera(60, w/h, 0.1, 5000);
-  camera.position.set(-35,30,-3);
+  camera.position.set(-20,30,-3);
   camera.lookAt(0,10,0);
   const renderer = new THREE.WebGLRenderer({antialias: true});
   renderer.setSize(container.clientWidth, container.clientHeight);
@@ -41,7 +42,7 @@ function create3DViewer(containerId, modelPath, texturePath, xOffsetGui = 0)
 
   // lumière et interface
   const couleurInitiale = 0xffffff;
-  const ambientLight = new THREE.AmbientLight( couleurInitiale, 4.5 ); // soft white light
+  const ambientLight = new THREE.AmbientLight( couleurInitiale, Math.PI ); // soft white light
   scene.add( ambientLight );
 
   const gui = new GUI({title: 'Contrôles des lumières', autoPlace: true});
@@ -99,10 +100,6 @@ function create3DViewer(containerId, modelPath, texturePath, xOffsetGui = 0)
   // Orbit controles 
   const controls = new OrbitControls(camera, renderer.domElement);
   controls.enableDamping = true;
-  controls.dampingFactor = 0.05;
-  controls.minDistance = 0.1;
-  controls.maxDistance = 2000;
-  controls.zoomSpeed = 0.1;
   controls.enableZoom = false;
   controls.target.set(0,10,0);
   controls.update();
@@ -128,19 +125,18 @@ function create3DViewer(containerId, modelPath, texturePath, xOffsetGui = 0)
 
 // creation des 3D viewer
 create3DViewer(
-  'container3D_1', 
+  'container1', 
   'public/oruk_chef_model/oruk_warhammer.glb', 
   'public/oruk_chef_model/oruk_warhammer_u0_v0_diffuse.png',
   0
 );
 
 create3DViewer(
-  'container3D_2', 
+  'container2', 
   'public/moon_boss_model/moon_boss.glb', 
   'public/moon_boss_model/moon_boss_u0_v0_diffuse.png', 
   260
 );
-
 
 
 
