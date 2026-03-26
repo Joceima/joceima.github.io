@@ -3,9 +3,6 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'; // with n
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
 
-const w = window.innerWidth;
-const h = window.innerHeight;
-
 function create3DViewer(containerId, modelPath, texturePath, xOffsetGui = 0)
 {
   // initiatlisation 
@@ -17,7 +14,11 @@ function create3DViewer(containerId, modelPath, texturePath, xOffsetGui = 0)
 
   // scène et caméra
   const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(60, w/h, 0.1, 100);
+  //const camera = new THREE.PerspectiveCamera(60, w/h, 0.1, 100);
+  //const rect = container.getBoundingClientRect();
+  const w = container.clientWidth;
+  const h = container.clientHeight;
+  const camera = new THREE.PerspectiveCamera(60, w/h, 0.1, 5000);
   camera.position.set(-35,30,-3);
   camera.lookAt(0,10,0);
   const renderer = new THREE.WebGLRenderer({antialias: true});
@@ -27,20 +28,20 @@ function create3DViewer(containerId, modelPath, texturePath, xOffsetGui = 0)
   renderer.toneMappingExposure = 1;
 
   // objets
-  const groundGeometry = new THREE.PlaneGeometry(100, 100, 160, 160);
-  groundGeometry.rotateX(-Math.PI/2);
-  const groundMaterial = new THREE.MeshStandardMaterial({
-    color : 0x555555,
-    side : THREE.DoubleSide
-  });
-  const groundMesh = new THREE.Mesh(groundGeometry, groundMaterial);
-  scene.add(groundMesh);
+  //const groundGeometry = new THREE.PlaneGeometry(100, 100, 160, 160);
+  //groundGeometry.rotateX(-Math.PI/2);
+  //const groundMaterial = new THREE.MeshStandardMaterial({
+  //  color : 0x555555,
+  //  side : THREE.DoubleSide
+  //});
+  //const groundMesh = new THREE.Mesh(groundGeometry, groundMaterial);
+  //scene.add(groundMesh);
   const axesHelper = new THREE.AxesHelper( 5 );
   scene.add( axesHelper );
 
   // lumière et interface
   const couleurInitiale = 0xffffff;
-  const ambientLight = new THREE.AmbientLight( couleurInitiale, Math.PI ); // soft white light
+  const ambientLight = new THREE.AmbientLight( couleurInitiale, 4.5 ); // soft white light
   scene.add( ambientLight );
 
   const gui = new GUI({title: 'Contrôles des lumières', autoPlace: true});
@@ -65,6 +66,7 @@ function create3DViewer(containerId, modelPath, texturePath, xOffsetGui = 0)
       modelPath, 
       (gltf) => {
           const model = gltf.scene;
+          
           model.traverse((child) => {
             if (child.isMesh) {
               child.material.map = maTexture;
@@ -96,32 +98,42 @@ function create3DViewer(containerId, modelPath, texturePath, xOffsetGui = 0)
 
   // Orbit controles 
   const controls = new OrbitControls(camera, renderer.domElement);
+  controls.enableDamping = true;
+  controls.dampingFactor = 0.05;
+  controls.minDistance = 0.1;
+  controls.maxDistance = 2000;
+  controls.zoomSpeed = 0.1;
+  controls.enableZoom = false;
   controls.target.set(0,10,0);
   controls.update();
 
   // rendu de la scène
   function animate() {
       requestAnimationFrame(animate);
+      controls.update();
       renderer.render(scene, camera);
   }
   animate();
 
   // event listenner resize
   window.addEventListener("resize", function(){
-      camera.aspect = w / h;
+    const width = container.clientWidth;
+    const height = container.clientHeight;
+      camera.aspect = width / height;
       camera.updateProjectionMatrix();
-      renderer.setSize(w, h);
+      renderer.setSize(width, height);
   });
+
 }
 
-
-
+// creation des 3D viewer
 create3DViewer(
   'container3D_1', 
   'public/oruk_chef_model/oruk_warhammer.glb', 
   'public/oruk_chef_model/oruk_warhammer_u0_v0_diffuse.png',
   0
 );
+
 create3DViewer(
   'container3D_2', 
   'public/moon_boss_model/moon_boss.glb', 

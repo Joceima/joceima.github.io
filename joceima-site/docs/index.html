@@ -145,13 +145,43 @@ ul.task-list li input[type="checkbox"] {
   }
 }
 </script>
-<div id="container3D_1" style="width: 100%; height: 500px; background-color: grey;">
+<div class="viewers-wrapper">
+<div id="container3D_1" class="viewer-container">
 
 </div>
-<div id="container3D_2" style="width: 100%; height: 500px; background-color: grey;">
+<div id="container3D_2" class="viewer-container">
 
+</div>
 </div>
 <script type="module" src="main.js"></script>
+<style>
+/* La boîte qui contient les deux viewers */
+.viewers-wrapper {
+    display: flex;          /* Active le mode côte à côte */
+    flex-direction: row;    /* Aligne horizontalement */
+    gap: 20px;              /* Espace entre les deux viewers */
+    width: 100%;            /* Prend toute la largeur disponible */
+    height: 600px;          /* Hauteur fixe pour tes viewers */
+    margin-top: 20px;
+}
+
+/* Chaque conteneur individuel */
+.viewer-container {
+    flex: 1;                /* Chaque viewer prend 50% de la largeur (partage équitable) */
+    background-color: #646262; /* Fond sombre en attendant le chargement */
+    border-radius: 8px;     /* Optionnel : bords arrondis */
+    overflow: hidden;       /* Empêche le canevas de déborder */
+    position: relative;
+}
+
+/* Responsive : si l'écran est trop petit (mobile), on les empile */
+@media (max-width: 800px) {
+    .viewers-wrapper {
+        flex-direction: column; 
+        height: 800px;      /* On augmente la hauteur totale pour en voir deux l'un sur l'autre */
+    }
+}
+</style>
 
 
 
