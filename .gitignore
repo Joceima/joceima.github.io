@@ -5,11 +5,12 @@
 *.glb
 *.png
 *.jpg
+*.glb.rsInfo
 
-joceima-site/public/oruk_warhammer.glb
-joceima-site/public/oruk_warhammer_u0_v0_diffuse.png
-joceima-site/public/oruk_warhammer_u0_v0_diffuse_2.png
-joceima-site/public/oruk_warhammer.glb.rsInfo
+joceima-site/public/oruk_chef_model/oruk_warhammer.glb
+joceima-site/public/oruk_chef_model/oruk_warhammer_u0_v0_diffuse.png
+joceima-site/public/oruk_chef_model/oruk_warhammer_u0_v0_diffuse_2.png
+joceima-site/public/oruk_chef_model/oruk_warhammer.glb.rsInfo
 
 
 

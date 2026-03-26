@@ -13,6 +13,7 @@ title: "Mon Portfolio"
 }
 </script>
 
-<div id="container3D" style="width: 100%; height: 500px; background-color: black;"></div>
+<div id="container3D_1" style="width: 100%; height: 500px; background-color: grey;"></div>
+<div id="container3D_2" style="width: 100%; height: 500px; background-color: grey;"></div>
 
 <script type="module" src="main.js"></script>

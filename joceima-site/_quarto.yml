@@ -14,5 +14,7 @@ format:
     theme: cosmo
     toc: true
     resources: 
-      - "public/*.glb"
-      - "public/*.png"
+      - "public/moon_boss_model/*.glb"
+      - "public/moon_boss_model/*.png"
+      - "public/oruk_chef_model/*.glb"
+      - "public/oruk_chef_model/*.png"
