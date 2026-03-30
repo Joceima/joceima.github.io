@@ -3,8 +3,6 @@ name: Publish Quarto to GitHub Pages
 on:
   push:
     branches: main
-  pull_request:
-    branches: [ "main" ]
 
 jobs:
   build-deploy:
@@ -13,6 +11,9 @@ jobs:
       contents: read
       pages: write
       id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
       - uses: actions/checkout@v4
@@ -24,10 +25,10 @@ jobs:
         run: quarto render
 
       - name: Upload to GitHub Pages
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v3
         with:
           path: '_output'
 
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v4
