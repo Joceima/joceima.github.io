@@ -56,6 +56,7 @@ function create3DViewer(containerId, modelPath, texturePath, xOffsetGui = 0)
   ambientFolder.addColor(ambientLight, 'color').name('Couleur');
   ambientFolder.open();
 
+
   // chargement modèle 
   const loader = new GLTFLoader();
   const dLoader = new DRACOLoader();
@@ -71,10 +72,11 @@ function create3DViewer(containerId, modelPath, texturePath, xOffsetGui = 0)
       (err) => console.error("Le serveur refuse toujours l'image :", err)
   );
   maTexture.flipY = false;
+  const model = null;
   loader.load(
       modelPath, 
       (gltf) => {
-          const model = gltf.scene;
+          model = gltf.scene;
           
           model.traverse((child) => {
             if (child.isMesh) {
@@ -97,6 +99,10 @@ function create3DViewer(containerId, modelPath, texturePath, xOffsetGui = 0)
           console.error('Erreur lors du chargement: ', error)
       }
   );
+
+  let directionnalLight = new THREE.DirectionalLight(couleurInitiale, 1.0);
+  directionnalLight.position(-20, 30, 3);
+  directionnalLight.position.set(model.position);
 
   if(container) {
     container.appendChild(renderer.domElement);
