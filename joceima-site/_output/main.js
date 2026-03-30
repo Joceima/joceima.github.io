@@ -1,9 +1,13 @@
-import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
-import { GLTFLoader } from 'https://unpkg.com/three@0.160.0/examples/jsm/loaders/GLTFLoader.js';
-import { OrbitControls } from 'https://unpkg.com/three@0.160.0/examples/jsm/controls/OrbitControls.js';
-import { DRACOLoader } from 'https://unpkg.com/three@0.160.0/examples/jsm/loaders/DRACOLoader.js';
+//import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
+//import { GLTFLoader } from 'https://unpkg.com/three@0.160.0/examples/jsm/loaders/GLTFLoader.js';
+//import { OrbitControls } from 'https://unpkg.com/three@0.160.0/examples/jsm/controls/OrbitControls.js';
+//import { DRACOLoader } from 'https://unpkg.com/three@0.160.0/examples/jsm/loaders/DRACOLoader.js';
 
-
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'; // with npm 
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 
 
 function create3DViewer(containerId, modelPath, texturePath, xOffsetGui = 0)
@@ -45,7 +49,7 @@ function create3DViewer(containerId, modelPath, texturePath, xOffsetGui = 0)
 
   // lumière et interface
   const couleurInitiale = 0xffffff;
-  const ambientLight = new THREE.AmbientLight( couleurInitiale, Math.PI ); // soft white light
+  const ambientLight = new THREE.AmbientLight( couleurInitiale, 7 ); // soft white light
   scene.add( ambientLight );
 
   const gui = new GUI({title: 'Contrôles des lumières', autoPlace: true});
@@ -55,6 +59,10 @@ function create3DViewer(containerId, modelPath, texturePath, xOffsetGui = 0)
   ambientFolder.add(ambientLight, "intensity", 0.0, Math.PI);
   ambientFolder.addColor(ambientLight, 'color').name('Couleur');
   ambientFolder.open();
+
+  const hemiLight = new THREE.HemisphereLight(couleurInitiale, 0x444444, 1.5);
+  hemiLight.position.set(0,20,0);
+  scene.add(hemiLight);
 
 
   // chargement modèle 
@@ -99,10 +107,6 @@ function create3DViewer(containerId, modelPath, texturePath, xOffsetGui = 0)
           console.error('Erreur lors du chargement: ', error)
       }
   );
-
-  let directionnalLight = new THREE.DirectionalLight(couleurInitiale, 1.0);
-  directionnalLight.position(-20, 30, 3);
-  directionnalLight.position.set(model.position);
 
   if(container) {
     container.appendChild(renderer.domElement);

@@ -1,9 +1,13 @@
-import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
-import { GLTFLoader } from 'https://unpkg.com/three@0.160.0/examples/jsm/loaders/GLTFLoader.js';
-import { OrbitControls } from 'https://unpkg.com/three@0.160.0/examples/jsm/controls/OrbitControls.js';
-import { DRACOLoader } from 'https://unpkg.com/three@0.160.0/examples/jsm/loaders/DRACOLoader.js';
+//import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
+//import { GLTFLoader } from 'https://unpkg.com/three@0.160.0/examples/jsm/loaders/GLTFLoader.js';
+//import { OrbitControls } from 'https://unpkg.com/three@0.160.0/examples/jsm/controls/OrbitControls.js';
+//import { DRACOLoader } from 'https://unpkg.com/three@0.160.0/examples/jsm/loaders/DRACOLoader.js';
 
-
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'; // with npm 
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 
 
 function create3DViewer(containerId, modelPath, texturePath, xOffsetGui = 0)
@@ -44,21 +48,62 @@ function create3DViewer(containerId, modelPath, texturePath, xOffsetGui = 0)
   scene.add( axesHelper );
 
   // lumière et interface
-  const couleurInitiale = 0xffffff;
-  const ambientLight = new THREE.AmbientLight( couleurInitiale, 7 ); // soft white light
-  scene.add( ambientLight );
+  //const couleurInitiale = 0xffffff;
+  //const ambientLight = new THREE.AmbientLight( couleurInitiale, 5); // soft white light
+  //scene.add( ambientLight );
+//
+  //const gui = new GUI({title: 'Contrôles des lumières', autoPlace: true});
+  //gui.domElement.style.marginRight = `${xOffsetGui}px`;
+  //const ambientFolder = gui.addFolder('Ambient');
+  //ambientFolder.add(ambientLight, "visible");
+  //ambientFolder.add(ambientLight, "intensity", 0.0, Math.PI);
+  //ambientFolder.addColor(ambientLight, 'color').name('Couleur');
+  //ambientFolder.open();
+//
+  //const hemiLight = new THREE.HemisphereLight(couleurInitiale, 0x444444, 1.5);
+  //hemiLight.position.set(0,20,0);
+  //scene.add(hemiLight);
 
-  const gui = new GUI({title: 'Contrôles des lumières', autoPlace: true});
-  gui.domElement.style.marginRight = `${xOffsetGui}px`;
-  const ambientFolder = gui.addFolder('Ambient');
-  ambientFolder.add(ambientLight, "visible");
-  ambientFolder.add(ambientLight, "intensity", 0.0, Math.PI);
-  ambientFolder.addColor(ambientLight, 'color').name('Couleur');
-  ambientFolder.open();
+  // --- CONFIGURATION DES LUMIÈRES ---
+  const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+  scene.add(ambientLight);
 
-  const hemiLight = new THREE.HemisphereLight(couleurInitiale, 0x444444, 1.5);
-  hemiLight.position.set(0,20,0);
+  const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 1);
+  hemiLight.position.set(0, 20, 0);
   scene.add(hemiLight);
+
+  const dirLight = new THREE.DirectionalLight(0xffffff, 2);
+  dirLight.position.set(10, 20, 10);
+  scene.add(dirLight);
+
+  // --- INTERFACE GUI ---
+  const gui = new GUI({ title: 'Studio Photo 3D', autoPlace: true });
+  gui.domElement.style.marginRight = `${xOffsetGui}px`;
+
+  // Dossier Ambient (Lumière globale)
+  const ambientFolder = gui.addFolder('Ambiance (Générale)');
+  ambientFolder.add(ambientLight, 'intensity', 0, 5).name('Intensité');
+  ambientFolder.addColor({ color: 0xffffff }, 'color').onChange((val) => ambientLight.color.set(val)).name('Couleur');
+
+  // Dossier Hemisphere (Ciel / Sol)
+  const hemiFolder = gui.addFolder('Hémisphère (Ciel)');
+  hemiFolder.add(hemiLight, 'intensity', 0, 5).name('Intensité');
+  hemiFolder.add(hemiLight.position, 'y', 0, 50).name('Hauteur Ciel');
+
+  // Dossier Directional (Le "Soleil" - Crée le relief)
+  const dirFolder = gui.addFolder('Directionnelle (Relief)');
+  dirFolder.add(dirLight, 'intensity', 0, 10).name('Puissance');
+  dirFolder.add(dirLight.position, 'x', -50, 50).name('Position X');
+  dirFolder.add(dirLight.position, 'y', -50, 50).name('Position Y');
+  dirFolder.add(dirLight.position, 'z', -50, 50).name('Position Z');
+  dirFolder.addColor({ color: 0xffffff }, 'color').onChange((val) => dirLight.color.set(val)).name('Couleur');
+
+  // Optionnel : Exposer le rendu (Luminosité globale du moteur)
+  //const renderFolder = gui.addFolder('Rendu Final');
+  //renderFolder.add(renderer, 'toneMappingExposure', 0, 3).name('Exposition (Global)');
+
+  dirFolder.open();
+  //renderFolder.open();
 
 
   // chargement modèle 
