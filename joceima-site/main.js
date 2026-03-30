@@ -76,7 +76,7 @@ function create3DViewer(containerId, modelPath, texturePath, xOffsetGui = 0)
   scene.add(dirLight);
 
   // --- INTERFACE GUI ---
-  const gui = new GUI({ title: 'Studio Photo 3D', autoPlace: true });
+  const gui = new GUI({ title: 'Paramètres lumières', autoPlace: true });
   gui.domElement.style.marginRight = `${xOffsetGui}px`;
 
   // Dossier Ambient (Lumière globale)
@@ -123,7 +123,7 @@ function create3DViewer(containerId, modelPath, texturePath, xOffsetGui = 0)
   loader.load(
       modelPath, 
       (gltf) => {
-          let model = gltf.scene;
+          const model = gltf.scene;
           
           model.traverse((child) => {
             if (child.isMesh) {
