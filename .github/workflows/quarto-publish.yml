@@ -36,7 +36,7 @@ jobs:
       - name: Upload to GitHub Pages
         uses: actions/upload-pages-artifact@v3
         with:
-          path: 'joceima-site/docs'
+          path: 'joceima-site/_output'
 
       - name: Deploy to GitHub Pages
         id: deployment
