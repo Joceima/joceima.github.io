@@ -1,6 +1,6 @@
 project:
   type: website
-  output-dir: docs
+  output-dir: _output
 website:
   title: "Mon portfolio"
   navbar:
