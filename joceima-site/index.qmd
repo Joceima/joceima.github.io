@@ -40,6 +40,12 @@ title: "Mon Portfolio"
 
 
 <style>
+
+.lil-gui {
+    z-index: 1000 !important;
+    position: fixed !important;
+}
+
 .viewers-wrapper {
     display: flex;
     flex-direction: row;
