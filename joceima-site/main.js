@@ -1,13 +1,12 @@
-//import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
-//import { GLTFLoader } from 'https://unpkg.com/three@0.160.0/examples/jsm/loaders/GLTFLoader.js';
-//import { OrbitControls } from 'https://unpkg.com/three@0.160.0/examples/jsm/controls/OrbitControls.js';
-//import { DRACOLoader } from 'https://unpkg.com/three@0.160.0/examples/jsm/loaders/DRACOLoader.js';
-
-import * as THREE from 'three';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'; // with npm 
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
-import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
+import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
+import { GLTFLoader } from 'https://unpkg.com/three@0.160.0/examples/jsm/loaders/GLTFLoader.js';
+import { OrbitControls } from 'https://unpkg.com/three@0.160.0/examples/jsm/controls/OrbitControls.js';
+import { DRACOLoader } from 'https://unpkg.com/three@0.160.0/examples/jsm/loaders/DRACOLoader.js'
+//import * as THREE from 'three';
+//import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'; // with npm 
+//import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+//import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
+//import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 
 
 function create3DViewer(containerId, modelPath, texturePath, xOffsetGui = 0)
