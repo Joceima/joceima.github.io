@@ -2,6 +2,10 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'; // with npm 
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
+
+
+
 
 function create3DViewer(containerId, modelPath, texturePath, xOffsetGui = 0)
 {
@@ -55,6 +59,11 @@ function create3DViewer(containerId, modelPath, texturePath, xOffsetGui = 0)
 
   // chargement modèle 
   const loader = new GLTFLoader();
+  const dLoader = new DRACOLoader();
+  dLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.7/');
+  dLoader.setDecoderConfig({type: 'js'});
+  loader.setDRACOLoader(dLoader);
+
   //loader.setPath(`public/`);
   const textureLoader = new THREE.TextureLoader();
   const maTexture = textureLoader.load(texturePath, 
@@ -99,10 +108,18 @@ function create3DViewer(containerId, modelPath, texturePath, xOffsetGui = 0)
 
   // Orbit controles 
   const controls = new OrbitControls(camera, renderer.domElement);
-  controls.enableDamping = true;
-  controls.enableZoom = false;
-  controls.target.set(0,10,0);
-  controls.update();
+  //controls.enableDamping = true;
+  //controls.enableZoom = false;
+  //controls.target.set(0,10,0);
+  //controls.update();
+
+  controls.enableDamping = true; // Indispensable pour la fluidité
+  controls.dampingFactor = 0.05;
+  controls.zoomSpeed = 1.2;      // Augmente un peu la vitesse pour les petits écrans
+
+  // BLOQUE le zoom molette si tu veux utiliser tes futurs boutons, 
+  // ou laisse-le à true si tu veux garder la souris.
+  controls.enableZoom = true;
 
   // rendu de la scène
   function animate() {
@@ -124,19 +141,27 @@ function create3DViewer(containerId, modelPath, texturePath, xOffsetGui = 0)
 }
 
 // creation des 3D viewer
-create3DViewer(
-  'container1', 
-  'public/oruk_chef_model/oruk_warhammer.glb', 
-  'public/oruk_chef_model/oruk_warhammer_u0_v0_diffuse.png',
-  0
-);
+//create3DViewer(
+//  'container1', 
+//  'public/oruk_chef_model/oruk_warhammer.glb', 
+//  'public/oruk_chef_model/oruk_warhammer_u0_v0_diffuse.png',
+//  0
+//);
+//
+//create3DViewer(
+//  'container2', 
+//  'public/moon_boss_model/moon_boss.glb', 
+//  'public/moon_boss_model/moon_boss_u0_v0_diffuse.png', 
+//  260
+//);
+//
 
-create3DViewer(
-  'container2', 
-  'public/moon_boss_model/moon_boss.glb', 
-  'public/moon_boss_model/moon_boss_u0_v0_diffuse.png', 
-  260
-);
+
+window.addEventListener('DOMContentLoaded', () => {
+    create3DViewer('container1', 'public/oruk_chef_model/oruk_warhammer.glb', 'public/oruk_chef_model/oruk_warhammer_u0_v0_diffuse.webp');
+    create3DViewer('container2', 'public/moon_boss_model/moon_boss.glb', 'public/moon_boss_model/moon_boss_u0_v0_diffuse.webp');
+});
+
 
 
 

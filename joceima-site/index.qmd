@@ -8,7 +8,8 @@ title: "Mon Portfolio"
     "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
     "three/examples/jsm/loaders/GLTFLoader.js": "https://unpkg.com/three@0.160.0/examples/jsm/loaders/GLTFLoader.js",
     "three/examples/jsm/controls/OrbitControls.js": "https://unpkg.com/three@0.160.0/examples/jsm/controls/OrbitControls.js",
-    "three/addons/libs/lil-gui.module.min.js": "https://cdn.jsdelivr.net/npm/lil-gui@0.19/+esm"
+    "three/addons/libs/lil-gui.module.min.js": "https://cdn.jsdelivr.net/npm/lil-gui@0.19/+esm",
+    "three/examples/jsm/loaders/DRACOLoader.js": "https://unpkg.com/three@0.160.0/examples/jsm/loaders/DRACOLoader.js"
   }
 }
 </script>
@@ -19,8 +20,8 @@ title: "Mon Portfolio"
 ::: {#container1 .viewer-container}
 :::
 ::: {.viewer-info}
-### Chef de Guerre Oruk
-Description en en cours.
+### Bosskitu' - Warhammer Age of Sigmar
+384 photos prises. Photogrammétrie sur RealityScan (EpicGames). Mesh en Normal Details.
 :::
 :::
 
@@ -28,8 +29,8 @@ Description en en cours.
 ::: {#container2 .viewer-container}
 :::
 ::: {.viewer-info}
-### Boss de la Lune
-Description en cours.
+### Loufboss - Warhammer Age of Sigmar
+134 photos prises. Photogrammétrie sur RealityScan (EpicGames). Mesh en Normal Details.
 :::
 :::
 
@@ -76,5 +77,31 @@ Description en cours.
     .viewers-wrapper {
         flex-direction: column;
     }
+}
+
+.zoom-controls {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 100;
+}
+
+.zoom-controls button {
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.zoom-controls button:hover {
+    background: white;
 }
 </style>

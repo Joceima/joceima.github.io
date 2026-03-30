@@ -15,6 +15,6 @@ format:
     toc: true
     resources: 
       - "public/moon_boss_model/*.glb"
-      - "public/moon_boss_model/*.png"
+      - "public/moon_boss_model/*.webp"
       - "public/oruk_chef_model/*.glb"
-      - "public/oruk_chef_model/*.png"
+      - "public/oruk_chef_model/*.webp"
