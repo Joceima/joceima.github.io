@@ -45,7 +45,7 @@ function create3DViewer(containerId, modelPath, texturePath, xOffsetGui = 0)
 
   // lumière et interface
   const couleurInitiale = 0xffffff;
-  const ambientLight = new THREE.AmbientLight( couleurInitiale, Math.PI ); // soft white light
+  const ambientLight = new THREE.AmbientLight( couleurInitiale, 7 ); // soft white light
   scene.add( ambientLight );
 
   const gui = new GUI({title: 'Contrôles des lumières', autoPlace: true});
@@ -99,10 +99,6 @@ function create3DViewer(containerId, modelPath, texturePath, xOffsetGui = 0)
           console.error('Erreur lors du chargement: ', error)
       }
   );
-
-  let directionnalLight = new THREE.DirectionalLight(couleurInitiale, 1.0);
-  directionnalLight.position(-20, 30, 3);
-  directionnalLight.position.set(model.position);
 
   if(container) {
     container.appendChild(renderer.domElement);
