@@ -120,11 +120,10 @@ function create3DViewer(containerId, modelPath, texturePath, xOffsetGui = 0)
       (err) => console.error("Le serveur refuse toujours l'image :", err)
   );
   maTexture.flipY = false;
-  const model = null;
   loader.load(
       modelPath, 
       (gltf) => {
-          model = gltf.scene;
+          let model = gltf.scene;
           
           model.traverse((child) => {
             if (child.isMesh) {
