@@ -56,6 +56,10 @@ function create3DViewer(containerId, modelPath, texturePath, xOffsetGui = 0)
   ambientFolder.addColor(ambientLight, 'color').name('Couleur');
   ambientFolder.open();
 
+  const hemiLight = new THREE.HemisphereLight(couleurInitiale, 0x444444, 1.5);
+  hemiLight.position.set(0,20,0);
+  scene.add(hemiLight);
+
 
   // chargement modèle 
   const loader = new GLTFLoader();
